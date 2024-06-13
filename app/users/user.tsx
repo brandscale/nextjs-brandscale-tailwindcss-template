@@ -29,6 +29,7 @@ export async function User() {
       >
         <Button variant="outline">Sign Out</Button>
       </form>
+
       <Image
         className="h-8 w-8 rounded-full"
         src={user.image!}

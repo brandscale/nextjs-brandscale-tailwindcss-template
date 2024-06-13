@@ -9,7 +9,7 @@ import {
   Table
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { deleteUser } from './actions';
+import { deleteUser } from '../actions';
 import { useRouter } from 'next/navigation';
 
 export function UsersTable({
