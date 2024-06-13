@@ -1,12 +1,15 @@
+import { Button } from '@/components/ui/button';
+import { auth, signIn, signOut } from '@/lib/auth';
 import { getUsers } from '@/lib/brandscale';
-import { UsersTable } from './users-table';
-import { Search } from '../search';
 
 export default async function IndexPage({
   searchParams
 }: {
   searchParams: { q: string; offset: string };
 }) {
+  const session = await auth();
+  const user = session?.user;
+
   const search = searchParams.q ?? '';
   const offset = searchParams.offset ?? 0;
   const { users, newOffset } = await getUsers(search, Number(offset));
@@ -20,7 +23,14 @@ export default async function IndexPage({
       <div className="w-full mb-4">
         Sign up to get started!
 
-        <button></button>
+        <form
+          action={async () => {
+            'use server';
+            await signIn('github');
+          }}
+        >
+          <Button variant="outline">Sign In</Button>
+        </form>
       </div>
     </main>
   );
