@@ -17,8 +17,8 @@ export default async function IndexPage({
         <h1 className="font-semibold text-lg md:text-2xl">Welcome!</h1>
       </div>
 
-      <div className="w-full mb-4">
-        Sign up to get started!
+      <div className="w-full flex flex-column items-center justify-center">
+        <div>Sign up to get started!</div>
 
         <button></button>
       </div>
