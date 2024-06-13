@@ -39,7 +39,7 @@ export default async function RootLayout({
                 <nav className="grid items-start px-4 text-sm font-medium">
                   {user && (
                     <>
-                      <NavItem href="/">
+                      <NavItem href="/users">
                         <UsersIcon className="h-4 w-4" />
                         Users
                       </NavItem>
