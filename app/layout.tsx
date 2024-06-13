@@ -2,6 +2,7 @@ import './globals.css';
 
 import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/react';
+import { auth, signIn, signOut } from '@/lib/auth';
 import { Logo, SettingsIcon, UsersIcon, VercelLogo } from '@/components/icons';
 import { User } from './users/user';
 import { NavItem } from './nav-item';
@@ -11,11 +12,14 @@ export const metadata = {
   description: 'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, and Prettier.'
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body>
@@ -33,14 +37,19 @@ export default function RootLayout({
               </div>
               <div className="flex-1 overflow-auto py-2">
                 <nav className="grid items-start px-4 text-sm font-medium">
-                  <NavItem href="/">
-                    <UsersIcon className="h-4 w-4" />
-                    Users
-                  </NavItem>
-                  <NavItem href="/settings">
-                    <SettingsIcon className="h-4 w-4" />
-                    Settings
-                  </NavItem>
+                  {user && (
+                    <>
+                      <NavItem href="/">
+                        <UsersIcon className="h-4 w-4" />
+                        Users
+                      </NavItem>
+
+                      <NavItem href="/settings">
+                        <SettingsIcon className="h-4 w-4" />
+                        Settings
+                      </NavItem>
+                    </>
+                  )}
                 </nav>
               </div>
             </div>
