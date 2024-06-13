@@ -6,17 +6,28 @@ import { auth, signIn, signOut } from '@/lib/auth';
 import { Logo, SettingsIcon, UsersIcon, VercelLogo } from '@/components/icons';
 import { User } from './users/user';
 import { NavItem } from './nav-item';
+import { getSite } from '@/lib/site';
 
-export const metadata = {
-  title: 'Next.js App Router + NextAuth + Tailwind CSS',
-  description: 'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, and Prettier.'
+const metadata = {
+  title: 'Brandscale + Next.js + Tailwind CSS + NextAuth',
+  description: 'A user admin dashboard configured with Brandscale, Next.js, NextAuth, Tailwind CSS, TypeScript, and Prettier.'
 };
+
+export async function generateMetadata(): Promise {
+  const site = await getSite();
+
+  return {
+    title: site?.title || site?.subtitle || metadata.title,
+    description: site?.description || site?.subtitle || metadata.description
+  };
+}
 
 export default async function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+  const site = await getSite();
   const session = await auth();
   const user = session?.user;
 
@@ -32,7 +43,7 @@ export default async function RootLayout({
                   href="/"
                 >
                   <Logo />
-                  <span className="">ACME</span>
+                  <span className="">{site?.title || 'ACME'}</span>
                 </Link>
               </div>
               <div className="flex-1 overflow-auto py-2">
