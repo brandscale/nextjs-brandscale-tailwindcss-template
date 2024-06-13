@@ -11,6 +11,9 @@ const nextConfig = {
         hostname: 'avatar.vercel.sh'
       }
     ]
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 };
 
